@@ -33,9 +33,27 @@ Furthermore, it might be difficult to evaluate countermeasures in terms of their
 
 ## Proposal 2: Federated Machine Learning
 ### Scientific Question
-### Papers
+COVID-19 research, especially machine learning based approaches, need a lot of medical patient data to make accurate predictions. This data is, for good reasons, often not publicly (or not at all) available and closely guarded by various healthcare institutions. So, there is motivation to use this data but also valid privacy based arguments to not make it available. Is there a way to satisfy both of these opposing point of views?
+Federated learning is a technique which makes it possible to distribute training of a model to multiple machines and combine their individual results (e.g. model weights) in a central model without the need to share any actual data. This enables collaboration on research of multiple entities (e.g. nations) without the need to share sensitive information with 'untrusted' collaborators.
+
+We want to check if and how federated machine learning can be integrated into existing machine learning models and approaches to assess if it a valid method for COVID-19 research.
+
+### Papers and their datasets
+The main paper using federated machine learning:
+* https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0252573 (COVID-19 detection using federated machine learning, datasets: )
+
+Example papers which we could use to test federated learning with:
+*
+*
+
+Please note that the proposed idea is not limited to the papers listed above, but could also be tested with other / more papers as long as they make their data available and use a neural network based model.
+
+Additional data can also be found in Googles `COVID-19 Open-Data` repository: https://github.com/GoogleCloudPlatform/covid-19-open-data.
+
 ### Methods
-### Data Sources
+
+We want to first replicate the main papers results mentioned above to get an idea of how to implement and use federated learning and then apply the method to approaches from other papers. We then want to compare the performance of the original and our approach to answer the validity of the method, especially considering that in [https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0252573] it is mentioned that not only can they make use of federation, but also that the results of the federated model is better than the non-federated model.
+
 ### Needed Computational Resources 
 The paper mentions the following hardware that was used during experiments:
 | Type | Hardware | 
