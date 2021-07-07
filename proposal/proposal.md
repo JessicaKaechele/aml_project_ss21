@@ -40,15 +40,26 @@ We want to check if and how federated machine learning can be integrated into ex
 
 ### Papers and their datasets
 The main paper using federated machine learning:
-* https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0252573 (COVID-19 detection using federated machine learning, datasets: )
+* COVID-19 detection using federated machine learning [https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0252573]
+  * Dataset 1: [https://www.kaggle.com/prashant268/chest-xray-covid19-pneumonia]
+  * Dataset 2: [https://www.kaggle.com/sudalairajkumar/novel-corona-virus-2019-dataset]
 
 Example papers which we could use to test federated learning with:
-*
-*
+* GraphCovidNet: A graph neural network based model for detecting COVID-19 from CT scans and X-rays of chest [https://www.nature.com/articles/s41598-021-87523-1]
+  * Datasets link available on the GitHub page: [https://github.com/debadyuti23/GraphCovidNet]
+
+* COVID-Net: a tailored deep convolutional neural network design for detection of COVID-19 cases from chest X-ray images [https://www.nature.com/articles/s41598-020-76550-z]
+  * Datasets link available on the GitHub page: [https://github.com/lindawangg/COVID-Net]
+
+* Automated detection of COVID-19 cases using deep neural networks with X-ray images [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7187882/]
+  * Datasets link available on the GitHub page: [https://github.com/muhammedtalo/COVID-19]
+
+* Deep learning based detection and analysis of COVID-19 on chest X-ray images [https://link.springer.com/article/10.1007/s10489-020-01902-1#Sec3]
+  * Dataset: [https://www.kaggle.com/prashant268/chest-xray-covid19-pneumonia]
 
 Please note that the proposed idea is not limited to the papers listed above, but could also be tested with other / more papers as long as they make their data available and use a neural network based model.
 
-Additional data can also be found in Googles `COVID-19 Open-Data` repository: https://github.com/GoogleCloudPlatform/covid-19-open-data.
+Additional data can also be found in Googles `COVID-19 Open-Data` repository: [https://github.com/GoogleCloudPlatform/covid-19-open-data].
 
 ### Methods
 
