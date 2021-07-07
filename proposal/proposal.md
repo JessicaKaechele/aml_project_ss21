@@ -7,7 +7,7 @@
 
 ## Proposal 1: Reinforcement Learning of Countermeasures
 ### Scientific Question
-This crisis confronts everyone with new, previously unknown challenges. Politicians in particular have to make decisions with consequences that are not fully foreseeable. Simulations can help to simulate countermeasures and observe their consequences before trying them out in the real world. This can help politicians to make better decisions. However, there are many different possibilities and scenarios. Trying them all out would be very time-consuming and hardly feasible. However, a reinforcement learning model could learn the correct use of countermeasures. With the help of the model, one could create a walkthrough that may be followed to keep the negative consequences as small as possible.
+The Covid-19 crisis confronts everyone with new, previously unknown challenges. Politicians in particular have to make decisions with consequences that are not fully foreseeable. Simulations can help to simulate countermeasures and observe their consequences before trying them out in the real world. This can help politicians to make better decisions. However, there are many different possibilities and scenarios. Trying them all out would be very time-consuming and hardly feasible. However, a reinforcement learning model could learn the correct use of countermeasures. With the help of the model, one could create a walkthrough that may be followed to keep the negative consequences as small as possible.
 
 ### Papers
 There are several papers that employ this approach [https://www.nature.com/articles/s41598-020-79147-8,
@@ -25,10 +25,7 @@ We want to use deep reinforcement learning and will orient ourselves on the abov
 
 ### Data Sources
 This project does not require any data sources, as the data is produced by the simulation itself. However, key figures are needed on the extent to which a countermeasure reduces the risk of infection. Studies such as this [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7684142/] can be used for this purpose.
-TODO: noch die Daten von den Impfungen? was denkst du jonas?
-https://www.rki.de/DE/Content/Infekt/EpidBull/Archiv/2021/Ausgaben/02_21.pdf?__blob=publicationFile
-https://www.astrazeneca.com/content/astraz/media-centre/press-releases/2021/astrazeneca-us-vaccine-trial-met-primary-endpoint.html
-TODO: eigentlich wäre es schön noch Daten zu haben, die den psychologischen impact angebeben. hab aber nix konkretes gefunden.
+There is also data available on the effectiveness of vaccination, such as [https://www.rki.de/DE/Content/Infekt/EpidBull/Archiv/2021/Ausgaben/02_21.pdf?__blob=publicationFile] or [https://www.astrazeneca.com/content/astraz/media-centre/press-releases/2021/astrazeneca-us-vaccine-trial-met-primary-endpoint.html] and studies / reports of the psychological impact from countermeasures like [https://www.iao.fraunhofer.de/en/press-and-media/latest-news/pinpointing-the-impact-of-the-covid-19-pandemic-with-ai.html, https://onlinelibrary.wiley.com/doi/10.1002/epa2.1091, https://www.rki.de/EN/Content/Health_Monitoring/Health_Reporting/GBEDownloadsJ/JoHM_S7_2020_Social_Inequalities_COVID_19.pdf?__blob=publicationFile].
 
 ### Possible Difficulties
 The main concern is that the model takes a long time to converge, as it is the case in [https://www.nature.com/articles/s41598-020-79147-8]. 
@@ -57,13 +54,13 @@ Instead of adopting existing models manually to federated learning, it would be 
 ## Bonus Proposal
 We are also interested in another project idea, but we were not sure how feasible it is to achieve and will therefor only briefly mention it. If it sounds like a reasonable idea, we could flesh it out to the length of the other proposals in the feedback week.
 
-There are a lot of papers trying to detect COVID-19 on lung CT scans, lung X-rays or similar data using mostly CNNs. `f-AnoGAN` (https://www.researchgate.net/publication/330796048_f-AnoGAN_Fast_Unsupervised_Anomaly_Detection_with_Generative_Adversarial_Networks) is a paper that tries to detect anomalies in retina images by utilizing a GAN to compare input images with reconstructions. This method could be modified to detect if a given query image contains COVID-19 and the performance compared against a few of the aforementioned papers (see also proposal 2 data sources for papers that could be used). 
+There are a lot of papers trying to detect COVID-19 on lung CT scans, lung X-rays or similar data using mostly CNNs. `f-AnoGAN` [https://www.researchgate.net/publication/330796048_f-AnoGAN_Fast_Unsupervised_Anomaly_Detection_with_Generative_Adversarial_Networks] is a paper that tries to detect anomalies in retina images by utilizing a GAN to compare input images with reconstructions. This method could be modified to detect if a given query image contains COVID-19 and the performance compared against a few of the aforementioned papers (see also proposal 2 data sources for papers that could be used). 
 
 As their training is rather resource intensive, we are not sure if it is possible for us to train a sufficiently big enough GAN to tackle this project.
 
 ## Available Computational Resources
 
-* Intel Skylake 6th Gen 4C / 8T CPU
+* Intel Skylake 6th Gen 4C / 8T CPU (6700K)
 * 16GB RAM
 * Nvidia RTX 2070 Super (8GB VRAM)
 
