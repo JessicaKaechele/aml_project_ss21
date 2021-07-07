@@ -5,12 +5,34 @@
 * Jessica Kächele, 3588787, uo251@stud.uni-heidelberg.de
 * Jonas Reinwald, 3600238, am248@stud.uni-heidelberg.de
 
-## Proposal 1
+## Proposal 1: Reinforcement Learning of Countermeasures
 ### Scientific Question
+This crisis confronts everyone with new, previously unknown challenges. Politicians in particular have to make decisions with consequences that are not fully foreseeable. Simulations can help to simulate countermeasures and observe their consequences before trying them out in the real world. This can help politicians to make better decisions. However, there are many different possibilities and scenarios. Trying them all out would be very time-consuming and hardly feasible. However, a reinforcement learning model could learn the correct use of countermeasures. With the help of the model, one could create a walkthrough that may be followed to keep the negative consequences as small as possible.
+
 ### Papers
+There are several papers that employ this approach [https://www.nature.com/articles/s41598-020-79147-8,
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7311597/, 
+https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0251550,
+https://kowshikchilamkurthy.medium.com/reinforcement-learning-for-covid-19-simulation-and-optimal-policy-b90719820a7f]. All of them use deep Q-learning. 
+Mostly, however, the simulations are kept very simple. Only movement restrictions are used as countermeasures.
+Measures such as vaccinations or wearing masks are not included. However, these can be very important factors that should not be excluded. Furthermore, the psychological effects of, for example, contact restrictions should not be ignored.
+In the papers mentioned, however, only economic and health system factors are considered. This neglects an important factor of the pandemic. The strictest contact restrictions do not help if they are not being followed.
+
 ### Methods
+We would like to use and expand the above simulation. More countermeasures such as wearing masks, keeping distance, contact tracing and quarantine, compulsory home office and school closures, vaccinations will be implemented. Furthermore, in addition to the overload of the health system and the economic impact, the psychological impact will also be measured.
+These impacts will then be used as rewards for the reinforcement learning agent. 
+We want to use deep reinforcement learning and will orient ourselves on the above-mentioned papers.
+
 ### Data Sources
+This project does not require any data sources, as the data is produced by the simulation itself. However, key figures are needed on the extent to which a countermeasure reduces the risk of infection. Studies such as this [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7684142/] can be used for this purpose.
+TODO: noch die Daten von den Impfungen? was denkst du jonas?
+https://www.rki.de/DE/Content/Infekt/EpidBull/Archiv/2021/Ausgaben/02_21.pdf?__blob=publicationFile
+https://www.astrazeneca.com/content/astraz/media-centre/press-releases/2021/astrazeneca-us-vaccine-trial-met-primary-endpoint.html
+TODO: eigentlich wäre es schön noch Daten zu haben, die den psychologischen impact angebeben. hab aber nix konkretes gefunden.
+
 ### Possible Difficulties
+The main concern is that the model takes a long time to converge, as it is the case in [https://www.nature.com/articles/s41598-020-79147-8]. 
+Furthermore, it might be difficult to evaluate countermeasures in terms of their psychological impact.
 
 ## Proposal 2: Federated Machine Learning
 ### Scientific Question
