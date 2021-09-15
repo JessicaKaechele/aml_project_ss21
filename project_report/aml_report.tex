@@ -1,0 +1,149 @@
+% This template was initially provided by Dulip Withanage.
+% Modifications for the database systems research group
+% were made by Conny Junghans,  Jannik Strötgen and Michael Gertz
+
+\documentclass[
+     12pt,         % font size
+     a4paper,      % paper format
+     BCOR10mm,     % binding correction
+     DIV14,        % stripe size for margin calculation
+     ]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% PACKAGES:
+
+% Use German :
+\usepackage[english]{babel}
+% Input and font encoding
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[title]{appendix}
+% Index-generation
+\usepackage{makeidx}
+% Einbinden von URLs:
+\usepackage{url}
+% Special \LaTex symbols (e.g. \BibTeX):
+%\usepackage{doc}
+% Include Graphic-files:
+\usepackage{graphicx}
+% Include doc++ generated tex-files:
+%\usepackage{docxx}
+
+% Fuer anderthalbzeiligen Textsatz
+\usepackage{setspace}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+% F�r todos
+\usepackage[obeyFinal]{easy-todo}
+
+% hyperrefs in the documents
+\PassOptionsToPackage{hyphens}{url}\usepackage[
+  bookmarks=true,
+  colorlinks,
+  pdfpagelabels,
+  pdfstartview = FitH,
+  bookmarksopen = true,
+  bookmarksnumbered = true,
+  linkcolor = black,
+  plainpages = false,
+  hypertexnames = false,
+  citecolor = black,
+  urlcolor=black]{hyperref}
+%\usepackage{hyperref}
+
+% subfigures
+\usepackage{subcaption}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% OTHER SETTINGS:
+
+% Choose language
+\newcommand{\setlang}[1]{\selectlanguage{#1}\nonfrenchspacing}
+
+% Written by comment
+\newcommand{\comment}[1]{\vspace{-1em}\hspace{27pt}{\small\textit{#1}}\bigskip\par}
+\newcommand{\subcomment}[1]{\vspace{-0.8em}\hspace{35pt}{\small\textit{#1}}\bigskip\par}
+\newcommand{\subsubcomment}[1]{\vspace{-0.8em}\hspace{39pt}{\small\textit{#1}}\bigskip\par}
+\newcommand{\paragraphcomment}[1]{\hspace{-8pt}{\small\textit{#1}}\hspace{8pt}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\setcounter{tocdepth}{2} 
+
+\begin{document}
+
+% TITLE:
+\pagenumbering{roman} 
+\begin{titlepage}
+
+
+\begin{center}
+\textbf{ 
+\Large Heidelberg University\\
+\smallskip
+}
+
+\vspace{2cm}
+
+\textbf{\large Project Report - Advanced Machine Learning}
+
+\vspace{0.5\baselineskip}
+{\huge
+\textbf{Federated Machine Learning}
+}
+\end{center}
+
+\vfill 
+
+{\large
+\begin{tabular}[l]{ll}
+Team Member: & Jessica Kaechele, 3588787,\\ & MSc Applied Computer Science\\
+  & Uo251@stud.uni-heidelberg.de\\
+Team Member: & Jonas Reinwald, 3600238, \\ & MSc Applied Computer Science\\
+  & am248@stud.uni-Heidelberg.de\\
+\end{tabular}
+}
+\vspace*{2cm}
+
+{
+  \begin{center}
+  \textbf{GitHub Repository:}
+  \url{https://github.com/...}
+  \end{center}
+}
+
+\vspace*{.5cm}
+
+\end{titlepage}
+
+\pagenumbering{arabic} 
+
+% \input{<file>}
+\newpage
+\tableofcontents
+
+\newpage
+\listoffigures
+\listoftables
+
+\newpage
+
+\begin{abstract}
+  TODO
+\end{abstract}
+
+\input{introduction}
+\input{methods}
+\input{training_process}
+\input{experimental_results}
+\input{outlook}
+
+\bibliographystyle{plain}
+\bibliography{bibtex/references}
+
+\end{document}
