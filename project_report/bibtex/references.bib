@@ -1,91 +1,124 @@
 % This file was created with JabRef 2.10.
 % Encoding: ISO8859_1
 
-@article{scikit-learn,
- title={Scikit-learn: Machine Learning in {P}ython},
- author={Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
-         and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
-         and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
-         Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E.},
- journal={Journal of Machine Learning Research},
- volume={12},
- pages={2825--2830},
- year={2011}
-}
-
 @misc{koethe,
-  author        = {U. Koethe},
-  title         = {Lecture notes in Fundamentals of Machine Learning},
-  month         = {February},
-  year          = {2021}
+  author = {U. Koethe},
+  title  = {Lecture notes in Advanced Machine Learning},
+  month  = {February},
+  year   = {2021}
 }
 
-@inproceedings{lgbm,
- author = {Ke, Guolin and Meng, Qi and Finley, Thomas and Wang, Taifeng and Chen, Wei and Ma, Weidong and Ye, Qiwei and Liu, Tie-Yan},
- booktitle = {Advances in Neural Information Processing Systems},
- editor = {I. Guyon and U. V. Luxburg and S. Bengio and H. Wallach and R. Fergus and S. Vishwanathan and R. Garnett},
- pages = {},
- publisher = {Curran Associates, Inc.},
- title = {LightGBM: A Highly Efficient Gradient Boosting Decision Tree},
- url = {https://proceedings.neurips.cc/paper/2017/file/6449f44a102fde848669bdd9eb6b76fa-Paper.pdf},
- volume = {30},
- year = {2017}
+@misc{google_ai_federated_learning,
+  author       = {Brendan McMahan and Daniel Ramage},
+  title        = {Google AI Blog: Federated Learning},
+  howpublished = {\url{https://ai.googleblog.com/2017/04/federated-learning-collaborative.html}},
+  note         = {Accessed: 2021-10-03}
 }
 
-@inproceedings{DBLP:conf/nips/Hasselt10,
-  author    = {Hado van Hasselt},
-  editor    = {John D. Lafferty and
-               Christopher K. I. Williams and
-               John Shawe{-}Taylor and
-               Richard S. Zemel and
-               Aron Culotta},
-  title     = {Double Q-learning},
-  booktitle = {Advances in Neural Information Processing Systems 23: 24th Annual
-               Conference on Neural Information Processing Systems 2010. Proceedings
-               of a meeting held 6-9 December 2010, Vancouver, British Columbia,
-               Canada},
-  pages     = {2613-2621},
-  publisher = {Curran Associates, Inc.},
-  year      = {2010},
-  url       = {https://proceedings.neurips.cc/paper/2010/hash/091d584fced301b442654dd8c23b3fc9-Abstract.html},
-  timestamp = {Thu, 21 Jan 2021 15:15:24 +0100},
-  biburl    = {https://dblp.org/rec/conf/nips/Hasselt10.bib},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
+@misc{tensorflow_federated,
+  author       = {Tensorflow},
+  title        = {Tensorflow Federated (TFF)},
+  howpublished = {\url{https://www.tensorflow.org/federated/}},
+  note         = {Accessed: 2021-10-05}
 }
 
-@inproceedings{10.1145/1102351.1102463,
-  author = {Tanner, Brian and Sutton, Richard S.},
-  title = {TD({$\lambda$}) Networks: Temporal-Difference Networks with Eligibility Traces},
-  year = {2005},
-  isbn = {1595931805},
-  publisher = {Association for Computing Machinery},
-  address = {New York, NY, USA},
-  url = {https://doi.org/10.1145/1102351.1102463},
-  doi = {10.1145/1102351.1102463},
-  booktitle = {Proceedings of the 22nd International Conference on Machine Learning},
-  pages = {888-895},
-  numpages = {8},
-  location = {Bonn, Germany},
-  series = {ICML 2005}
-  }
-
-@article{watkins_q_lambda,
-  author = {Watkins, Christopher},
-  year = {1989},
-  month = {01},
-  pages = {},
-  title = {Learning From Delayed Rewards}
+@misc{pysyft,
+  author       = {OpenMined},
+  title        = {PySyft},
+  howpublished = {\url{https://github.com/OpenMined/PySyft}},
+  note         = {Accessed: 2021-10-05}
 }
 
-@misc{sklearn_linear_regression,
-  title={sklearn.linear\_model.LinearRegression},
-  howpublished = {\url{https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html}},
-  note = {Accessed: 2021-03-29}
-} 
-
-@misc{sklearn_polynomial_features,
-  title={sklearn.preprocessing.PolynomialFeatures},
-  howpublished = {\url{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html}},
-  note = {Accessed: 2021-03-29}
+@article{graph_covid_net,
+  author   = {Saha, Pritam
+    and Mukherjee, Debadyuti
+    and Singh, Pawan Kumar
+    and Ahmadian, Ali
+    and Ferrara, Massimiliano
+    and Sarkar, Ram},
+  title    = {GraphCovidNet: A graph neural network based model for detecting COVID-19 from CT scans and X-rays of chest},
+  journal  = {Scientific Reports},
+  year     = {2021},
+  month    = {Apr},
+  day      = {15},
+  volume   = {11},
+  number   = {1},
+  pages    = {8304},
+  abstract = {COVID-19, a viral infection originated from Wuhan, China has spread across the world and it has currently affected over 115 million people. Although vaccination process has already started, reaching sufficient availability will take time. Considering the impact of this widespread disease, many research attempts have been made by the computer scientists to screen the COVID-19 from Chest X-Rays (CXRs) or Computed Tomography (CT) scans. To this end, we have proposed GraphCovidNet, a Graph Isomorphic Network (GIN) based model which is used to detect COVID-19 from CT-scans and CXRs of the affected patients. Our proposed model only accepts input data in the form of graph as we follow a GIN based architecture. Initially, pre-processing is performed to convert an image data into an undirected graph to consider only the edges instead of the whole image. Our proposed GraphCovidNet model is evaluated on four standard datasets: SARS-COV-2 Ct-Scan dataset, COVID-CT dataset, combination of covid-chestxray-dataset, Chest X-Ray Images (Pneumonia) dataset and CMSC-678-ML-Project dataset. The model shows an impressive accuracy of 99{\%} for all the datasets and its prediction capability becomes 100{\%} accurate for the binary classification problem of detecting COVID-19 scans. Source code of this work can be found at GitHub-link.},
+  issn     = {2045-2322},
+  doi      = {10.1038/s41598-021-87523-1},
+  url      = {https://doi.org/10.1038/s41598-021-87523-1}
 }
 
+@article{covid_net,
+  author   = {Wang, Linda
+    and Lin, Zhong Qiu
+    and Wong, Alexander},
+  title    = {COVID-Net: a tailored deep convolutional neural network design for detection of COVID-19 cases from chest X-ray images},
+  journal  = {Scientific Reports},
+  year     = {2020},
+  month    = {Nov},
+  day      = {11},
+  volume   = {10},
+  number   = {1},
+  pages    = {19549},
+  abstract = {The Coronavirus Disease 2019 (COVID-19) pandemic continues to have a devastating effect on the health and well-being of the global population. A critical step in the fight against COVID-19 is effective screening of infected patients, with one of the key screening approaches being radiology examination using chest radiography. It was found in early studies that patients present abnormalities in chest radiography images that are characteristic of those infected with COVID-19. Motivated by this and inspired by the open source efforts of the research community, in this study we introduce COVID-Net, a deep convolutional neural network design tailored for the detection of COVID-19 cases from chest X-ray (CXR) images that is open source and available to the general public. To the best of the authors' knowledge, COVID-Net is one of the first open source network designs for COVID-19 detection from CXR images at the time of initial release. We also introduce COVIDx, an open access benchmark dataset that we generated comprising of 13,975 CXR images across 13,870 patient patient cases, with the largest number of publicly available COVID-19 positive cases to the best of the authors' knowledge. Furthermore, we investigate how COVID-Net makes predictions using an explainability method in an attempt to not only gain deeper insights into critical factors associated with COVID cases, which can aid clinicians in improved screening, but also audit COVID-Net in a responsible and transparent manner to validate that it is making decisions based on relevant information from the CXR images. By no means a production-ready solution, the hope is that the open access COVID-Net, along with the description on constructing the open source COVIDx dataset, will be leveraged and build upon by both researchers and citizen data scientists alike to accelerate the development of highly accurate yet practical deep learning solutions for detecting COVID-19 cases and accelerate treatment of those who need it the most.},
+  issn     = {2045-2322},
+  doi      = {10.1038/s41598-020-76550-z},
+  url      = {https://doi.org/10.1038/s41598-020-76550-z}
+}
+
+@article{dark_net,
+  author    = {Ozturk, Tulin
+    and Talo, Muhammed
+    and Yildirim, Eylul Azra
+    and Baloglu, Ulas Baran
+    and Yildirim, Ozal
+    and Rajendra Acharya, U.},
+  title     = {Automated detection of COVID-19 cases using deep neural networks with X-ray images},
+  journal   = {Computers in biology and medicine},
+  year      = {2020},
+  month     = {Jun},
+  edition   = {2020/04/28},
+  publisher = {Elsevier Ltd.},
+  volume    = {121},
+  pages     = {103792-103792},
+  keywords  = {*Chest X-ray images; *Coronavirus (COVID-19); *Deep learning; *Radiology images; *Betacoronavirus; COVID-19; Computational Biology; Coronavirus Infections/classification/*diagnosis/*diagnostic imaging; Databases, Factual; Diagnosis, Computer-Assisted; Female; Humans; Lung/diagnostic imaging; Male; Middle Aged; *Neural Networks, Computer; Pandemics/classification; Pneumonia/diagnosis/diagnostic imaging; Pneumonia, Viral/classification/*diagnosis/*diagnostic imaging; *Radiographic Image Interpretation, Computer-Assisted; SARS-CoV-2},
+  abstract  = {The novel coronavirus 2019 (COVID-2019), which first appeared in Wuhan city of China in December 2019, spread rapidly around the world and became a pandemic. It has caused a devastating effect on both daily lives, public health, and the global economy. It is critical to detect the positive cases as early as possible so as to prevent the further spread of this epidemic and to quickly treat affected patients. The need for auxiliary diagnostic tools has increased as there are no accurate automated toolkits available. Recent findings obtained using radiology imaging techniques suggest that such images contain salient information about the COVID-19 virus. Application of advanced artificial intelligence (AI) techniques coupled with radiological imaging can be helpful for the accurate detection of this disease, and can also be assistive to overcome the problem of a lack of specialized physicians in remote villages. In this study, a new model for automatic COVID-19 detection using raw chest X-ray images is presented. The proposed model is developed to provide accurate diagnostics for binary classification (COVID vs. No-Findings) and multi-class classification (COVID vs. No-Findings vs. Pneumonia). Our model produced a classification accuracy of 98.08{\%} for binary classes and 87.02{\%} for multi-class cases. The DarkNet model was used in our study as a classifier for the you only look once (YOLO) real time object detection system. We implemented 17 convolutional layers and introduced different filtering on each layer. Our model (available at (https://github.com/muhammedtalo/COVID-19)) can be employed to assist radiologists in validating their initial screening, and can also be employed via cloud to immediately screen patients.},
+  note      = {32568675[pmid]},
+  note      = {PMC7187882[pmcid]},
+  note      = {S0010-4825(20)30162-1[PII]},
+  issn      = {1879-0534},
+  doi       = {10.1016/j.compbiomed.2020.103792},
+  url       = {https://pubmed.ncbi.nlm.nih.gov/32568675},
+  url       = {https://doi.org/10.1016/j.compbiomed.2020.103792},
+  language  = {eng}
+}
+
+@article{dlh_net,
+  author       = {Bacellar, Gunther Correia and Chandrappa, Mallikarjuna and Kulkarni, Rajlakshman and Dey, Soumava},
+  title        = {COVID-19 Chest X-Ray Image Classification Using Deep Learning},
+  elocation-id = {2021.07.15.21260605},
+  year         = {2021},
+  doi          = {10.1101/2021.07.15.21260605},
+  publisher    = {Cold Spring Harbor Laboratory Press},
+  abstract     = {The rise of the coronavirus disease 2019 (COVID-19) pandemic has made it necessary to improve existing medical screening and clinical management of this disease. While COVID-19 patients are known to exhibit a variety of symptoms, the major symptoms include fever, cough, and fatigue. Since these symptoms also appear in pneumonia patients, this creates complications in COVID-19 detection especially during the flu season. Early studies identified abnormalities in chest X-ray images of COVID-19 infected patients that could be beneficial for disease diagnosis. Therefore, chest X-ray image-based disease classification has emerged as an alternative to aid medical diagnosis. However, manual detection of COVID-19 from a set of chest X-ray images comprising both COVID-19 and pneumonia cases is cumbersome and prone to human error. Thus, artificial intelligence techniques powered by deep learning algorithms, which learn from radiography images and predict presence of COVID-19 have potential to enhance current diagnosis process. Towards this purpose, here we implemented a set of deep learning pre-trained models such as ResNet, VGG, Inception and EfficientNet in conjunction with developing a computer vision AI system based on our own convolutional neural network (CNN) model: Deep Learning in Healthcare (DLH)-COVID. All these CNN models cater to image classification exercise. We used publicly available resources of 6,432 images and further strengthened our model by tuning hyperparameters to provide better generalization during the model validation phase. Our final DLH-COVID model yielded the highest accuracy of 96\% in detection of COVID-19 from chest X-ray images when compared to images of both pneumonia-affected and healthy individuals. Given the practicality of acquiring chest X-ray images by patients, we also developed a web application (link: https://toad.li/xray) based on our model to directly enable users to upload chest X-ray images and detect the presence of COVID-19 within a few seconds. Taken together, here we introduce a state-of-the-art artificial intelligence-based system for efficient COVID-19 detection and a user-friendly application that has the capacity to become a rapid COVID-19 diagnosis method in the near future.Competing Interest StatementThe authors have declared no competing interest.Funding StatementNot applicable. This research is a part of an academic project.Author DeclarationsI confirm all relevant ethical guidelines have been followed, and any necessary IRB and/or ethics committee approvals have been obtained.YesThe details of the IRB/oversight body that provided approval or exemption for the research described are given below:Not applicable for this research.All necessary patient/participant consent has been obtained and the appropriate institutional forms have been archived.YesI understand that all clinical trials and any other prospective interventional studies must be registered with an ICMJE-approved registry, such as ClinicalTrials.gov. I confirm that any such study reported in the manuscript has been registered and the trial registration ID is provided (note: if posting a prospective study registered retrospectively, please provide a statement in the trial ID field explaining why the study was not registered in advance).YesI have followed all appropriate research reporting guidelines and uploaded the relevant EQUATOR Network research reporting checklist(s) and other pertinent material as supplementary files, if applicable.YesThe chest X-ray image dataset used for this research is available at publicly accessible Kaggle website. https://www.kaggle.com/prashant268/chest-xray-covid19-pneumonia},
+  url          = {https://www.medrxiv.org/content/early/2021/07/19/2021.07.15.21260605},
+  eprint       = {https://www.medrxiv.org/content/early/2021/07/19/2021.07.15.21260605.full.pdf},
+  journal      = {medRxiv}
+}
+
+@article{federated_machine_learning,
+  doi       = {10.1371/journal.pone.0252573},
+  author    = {Abdul Salam, Mustafa AND Taha, Sanaa AND Ramadan, Mohamed},
+  journal   = {PLOS ONE},
+  publisher = {Public Library of Science},
+  title     = {COVID-19 detection using federated machine learning},
+  year      = {2021},
+  month     = {06},
+  volume    = {16},
+  url       = {https://doi.org/10.1371/journal.pone.0252573},
+  pages     = {1-25},
+  abstract  = {The current COVID-19 pandemic threatens human life, health, and productivity. AI plays an essential role in COVID-19 case classification as we can apply machine learning models on COVID-19 case data to predict infectious cases and recovery rates using chest x-ray. Accessing patient’s private data violates patient privacy and traditional machine learning model requires accessing or transferring whole data to train the model. In recent years, there has been increasing interest in federated machine learning, as it provides an effective solution for data privacy, centralized computation, and high computation power. In this paper, we studied the efficacy of federated learning versus traditional learning by developing two machine learning models (a federated learning model and a traditional machine learning model)using Keras and TensorFlow federated, we used a descriptive dataset and chest x-ray (CXR) images from COVID-19 patients. During the model training stage, we tried to identify which factors affect model prediction accuracy and loss like activation function, model optimizer, learning rate, number of rounds, and data Size, we kept recording and plotting the model loss and prediction accuracy per each training round, to identify which factors affect the model performance, and we found that softmax activation function and SGD optimizer give better prediction accuracy and loss, changing the number of rounds and learning rate has slightly effect on model prediction accuracy and prediction loss but increasing the data size did not have any effect on model prediction accuracy and prediction loss. finally, we build a comparison between the proposed models’ loss, accuracy, and performance speed, the results demonstrate that the federated machine learning model has a better prediction accuracy and loss but higher performance time than the traditional machine learning model.},
+  number    = {6}
+}
