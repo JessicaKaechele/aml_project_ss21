@@ -1,11 +1,28 @@
 \section{Exerimental Results}
-This section will show and compare results obtained from original approaches, our implementation of them and their adoption to federated learning. As mentioned in chapter \ref{} we did not want to change more than absolutely necessary from the original implementation, including the testing and evaluation methods, which is why the presentation and form of results can differ from one paper to another.
+This section will show and compare results obtained from original approaches, our implementation of them and their adoption to federated learning. As mentioned in chapters \ref{subsec:methods_original_paper} and \ref{subsec:methods_adapted_papers} we did not want to change more than absolutely necessary from the original implementation, including the testing and evaluation methods, which is why the presentation and form of results can differ from one paper to another.
 
-\subsection{Paper 1}
-\subsection{Paper 2}
-\subsection{Paper 3}
-\subsection{Paper 4}
-\subsection{Paper 5}
+\subsection{Federation Paper}
+
+\begin{table}[]
+    \small
+    \centering
+    \caption{Comparison between federation paper and our ResNet implementation.}
+    \begin{tabular}{c|c|c|c|c}
+        Model & Optimizer & Data distribution & Averaging method & Accuracy \\
+        \hline
+        Federation paper (sequential) & SGD & - & - & -1\\
+        Federation paper (sequential) & Adam & - & - & -1\\
+        Federation paper (federated) & SGD & - & - & -1\\
+        Federation paper (federated) & Adam & - & - & -1\\
+    \end{tabular}
+    \label{tab:results_federation_paper}
+\end{table}
+
+\subsection{COVIDNet}
+\subsection{DLH-Covid}
+\subsection{DarkCovidNet}
+\subsection{GraphCovidNet}
+
 vergleich ergebnisse paper vs nachgebautem Code
 vergleich sequential vs federated
 kurz auf automatisches Federated eingehen und welche Ergebnisse damit erzielt werden können?

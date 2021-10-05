@@ -29,6 +29,13 @@
   note         = {Accessed: 2021-10-05}
 }
 
+@misc{data_breaches,
+  author       = {Eugene Bekker},
+  title        = {2021 Data Breaches | The Worst So Far},
+  howpublished = {\url{https://www.identityforce.com/blog/2021-data-breaches}},
+  note         = {Accessed: 2021-10-05}
+}
+
 @article{graph_covid_net,
   author   = {Saha, Pritam
     and Mukherjee, Debadyuti
@@ -121,4 +128,21 @@
   pages     = {1-25},
   abstract  = {The current COVID-19 pandemic threatens human life, health, and productivity. AI plays an essential role in COVID-19 case classification as we can apply machine learning models on COVID-19 case data to predict infectious cases and recovery rates using chest x-ray. Accessing patient’s private data violates patient privacy and traditional machine learning model requires accessing or transferring whole data to train the model. In recent years, there has been increasing interest in federated machine learning, as it provides an effective solution for data privacy, centralized computation, and high computation power. In this paper, we studied the efficacy of federated learning versus traditional learning by developing two machine learning models (a federated learning model and a traditional machine learning model)using Keras and TensorFlow federated, we used a descriptive dataset and chest x-ray (CXR) images from COVID-19 patients. During the model training stage, we tried to identify which factors affect model prediction accuracy and loss like activation function, model optimizer, learning rate, number of rounds, and data Size, we kept recording and plotting the model loss and prediction accuracy per each training round, to identify which factors affect the model performance, and we found that softmax activation function and SGD optimizer give better prediction accuracy and loss, changing the number of rounds and learning rate has slightly effect on model prediction accuracy and prediction loss but increasing the data size did not have any effect on model prediction accuracy and prediction loss. finally, we build a comparison between the proposed models’ loss, accuracy, and performance speed, the results demonstrate that the federated machine learning model has a better prediction accuracy and loss but higher performance time than the traditional machine learning model.},
   number    = {6}
+}
+
+@unknown{fed_split,
+  author = {Pathak, Reese and Wainwright, Martin},
+  year = {2020},
+  month = {05},
+  pages = {},
+  title = {FedSplit: An algorithmic framework for fast federated optimization}
+}
+
+@misc{fed_prox,
+  title={Federated Optimization in Heterogeneous Networks}, 
+  author={Tian Li and Anit Kumar Sahu and Manzil Zaheer and Maziar Sanjabi and Ameet Talwalkar and Virginia Smith},
+  year={2020},
+  eprint={1812.06127},
+  archivePrefix={arXiv},
+  primaryClass={cs.LG}
 }
