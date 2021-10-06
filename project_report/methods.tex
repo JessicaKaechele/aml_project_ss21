@@ -5,19 +5,19 @@ The following section will first give an explanation of what federated learning 
 Federated learning was first introduced by Google on their Google AI blog as a way to do \enquote{Collaborative Machine Learning without Centralized Training Data}\cite{google_ai_federated_learning}. The initial intention behind its development was to enable low power devices like mobile phones to collaboratively train a shared machine learning model without the need to keep all of the training data somewhere in the cloud and accessible to all devices. Another benefit of training models on client devices is that they can instantly be used for prediction as well, which lowers time overhead in comparison with models that are queried over the internet on a central server and even continues to work if there is no internet connection available.
 Figure \ref{fig:google_ai_fl} shows the basic idea of federated learning. 
 
-\begin{enumerate}
-    \item First, a shared model is initialized and distributed to client devices (or directly initialized on device).
-    \item The local model is trained with data on the device. [A]
-    \item All local models are combined to update the shared model. [B] 
-    \item The shared model is then redistributed to all clients, where it gets trained further with local data. [C]
-\end{enumerate}
-
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1.0\linewidth]{imgs/FederatedLearning_googleai.png}
     \caption{Federated learning overview by Google AI.\cite{google_ai_federated_learning}}
     \label{fig:google_ai_fl}
 \end{figure}
+
+\begin{enumerate}
+    \item First, a shared model is initialized and distributed to client devices (or directly initialized on device).
+    \item The local model is trained with data on the device. (A)
+    \item All local models are combined to update the shared model. (B) 
+    \item The shared model is then redistributed to all clients, where it gets trained further with local data. (C)
+\end{enumerate}
 
 With this process it is not only possible to utilize low-power devices for training machine learning models but also to use and keep private data on the device, protecting privacy as the only data that is transmitted to the central server are the model updates in form of its weights. The local weight updates can then be deleted once incorporated into the shared model.
 
@@ -34,16 +34,47 @@ FedSGD vs FedAvg
 
 
 \subsection{Implementing Federated Learning}\label{subsec:methods_original_paper}
-To get started, we wanted to use the \enquote{COVID-19 detection using federated machine learning} paper\cite{federated_machine_learning}, also named the \textit{federation paper} from here on out, and (re)build the sequential and federated models described by the authors to learn how this collaborative process is implemented in real world scenarios. The main reason we decided to use this exact paper is, that it has the same goal of testing federated learning in Covid research and that at the time of searching for a project topic, it was one of the only ones available doing this and also having a public dataset available.
+To get started, we wanted to use the \enquote{COVID-19 detection using federated machine learning} paper\cite{federated_machine_learning}, also named the \textit{federation paper} from this point on, and (re)build the centralized and federated models described by the authors to learn how this collaborative process is implemented in real world scenarios. The main reason we decided to use this exact paper is, that it has the same goal of testing federated learning in Covid research and that at the time of searching for a project topic, it was one of the only ones available doing this and also having a public dataset available.
 There is no public code of the original implementation available, but a step-by-step description of the authors process is included. The paper uses the Tensorflow Federated framework\cite{tensorflow_federated} and assumes that the reader has some knowledge of Tensorflow, Keras and Tensorflow Federated. Because of this assumption, the steps were not detailed enough for us to properly reproduce their solution, which is why we decided to build our own training environment in PyTorch and use its pre-build ResNet18 as the model of choice. Training and test data, a Kaggle dataset\cite{}, as well as data preprocessing was done the same way as described in the paper. The authors tested both SGD and Adam optimizers and found that SGD outperformed Adam very slightly. However, in our own initial tests Adam performed better and we consequently only used it as the optimizer in our implementation.
 
 In real federated scenarios the clients are deployed on different hardware and have to communicate extensively with each other in order to update their respective models. While this is an important part of federated learning in real world scenarios, it is not directly a machine learning problem. Network communication is a complete research topic in itself and as described in section \ref{subsec:methods_federated_learning} there already exist algorithms and ideas specifically tailored to make the communication part in federated learning as efficient and secure as possible. For this reason and in correspondence with following the paper example, we decided that the learning and not the communication part is of more interest and relevance to the task at hand and therefore opted to not train our client models on separate machines. They are rather implemented as different and strictly isolated instances of the same model on the same computer, which makes copying and aggregating their model weights easier while still maintaining the core parts of federated learning (minus the network communication).
 
 \subsection{Overview of Adapted Papers}\label{subsec:methods_adapted_papers}
 After the first paper proved hard to replicate exactly, we chose to only adapt papers where code is publicly available. This also makes verifying and comparing our results with the authors results much easier.
-To make the lessons learned from the \textit{federation paper} applicable, all models discussed and implemented also use some form of image data for Covid-19 identification.
+To make the lessons and implementations from the \textit{federation paper} applicable, all further models discussed and implemented also only use data in the form of images for COVID-19 identification.
 
-\paragraph{COVIDNet}
-\paragraph{DLH-Covid}
-\paragraph{DarkCovidNet}
-\paragraph{GraphCovidNet}
+\subsubsection{COVID-Net}
+COVID-Net\cite{covid_net} is a deep convolutional neural network (CNN) designed to detect COVID-19 from chest X-ray images. According to the authors, at the time of its release in 2020 it was one of the first open-source networks designed for this task. In addition to the detection of COVID-19, part of this papers research also attempts to audit the network and its detection mechanism in a transparent way by using an \enquote{explainability method}\cite{covid_net}. The final model was not designed by humans, but a generative synthesis process that identifies the best working architectures while following some specified design requirements. 
+The network is not presented as a production-ready solution, but rather as a basis for further research.
+
+The authors also introduce their own open access benchmark dataset that they generated from various sources containing 13.975 images of chest X-rays.
+
+\subsubsection{Deep Learning in Healthcare-COVID}
+The Deep Learning in Healthcare-COVID, or DLH-COVID, paper was released in July 2021. It was created to enhance the process of COVID-19 diagnoses, as the \enquote{manual detection of COVID-19 from a set of chest X-ray images comprising both COVID-19 and pneumonia cases is cumbersome and prone to human error}\cite{dlh_net}. The authors implemented a range of pre-trained models (ResNet, VGG, Inception and EfficientNet) to compare them to their own convolutional neural network. They use datasets containing 6,432 images that are publicly available. In their tests, the new model outperformed the pre-trained models in a multi-class detection setting.
+
+In addition, the final model was also integrated into a web-application\footnote{\url{https://x-ray-app.azurewebsites.net/}} from which it can be used to instantly classify images.
+
+\subsubsection{DarkCovidNet}
+This paper also uses chest X-ray image data for detection of COVID-19. The authors intend for it to be used to \enquote{assist radiologists in validating their initial screening}\cite{dark_net} and also for deployment in the cloud to make immediate screening of patients available where there is a lock of specialized physicians. The model is based on the Darknet-19 model used for real-time object detection\cite{darknet_19}, consists of 17 convolutional layers and can be used for binary (Covid / No Covid) or multi-class (Covid / Pneumonia / No-Finding) classification.
+Ozturk et al. assure that the \enquote{performance of the developed model is assessed by expert radiologists} but also that it need to be made more robust and accurate because \enquote{a limitation of the study is the use of a limited number of COVID19 X-ray images}\cite{dark_net}.
+
+\subsubsection{GraphCovidNet}\label{subsubsec:methods_graphcovidnet}
+In comparison with the three CNNs before, GraphCovidNet is a graph neural network (GNN) which can detect COVID-19 from CT- and X-ray chest scans by classifying nodes in a graph or entire graphs. The graph based approach was taken because according to the authors, GNNs are not as prone to over-fitting, work better with imbalanced classes and are fast\cite{graph_covid_net}. According to their knowledge, this is the first graph based neural network architecture used for COVID-19 detection.
+Instead of normal images GNNs require graph data structures as input, which is why image data had to be converted to graph data before it could be used. This is done by first detecting edges using a Prewitt filter and then converting to a graph structure by the following procedure:
+
+\begin{displayquote}[\cite{graph_covid_net}]
+    \begin{enumerate}
+        \item Each pixel having grayscale intensity value greater than or equal to 128 is qualified as a node or a graph vertex. This implies that nodes reside only on the prominent edges of the edge image. Feature of a node consists of the grayscale intensity of the corresponding pixel.
+        \item Edge exists between the two nodes which represent neighboring pixels in the original image.
+        \item For each image, one graph is formed. This means that all the nodes as well as the edges constructed from a single image belongs to the same graph. The node attributes, which are simply grayscale values, are normalized graph-wise. Finally, normalization is done by subtracting the mean of all attributes under a graph from the original value and then dividing it by the standard deviation.  
+    \end{enumerate}
+\end{displayquote}
+
+The whole process and its result can be seen in figure \ref{fig:graphcovidnet_graph_generation}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{imgs/graphcovidnet_graph_generation.png}
+    \caption{Generation of the graph based dataset as depicted in \cite{graph_covid_net}.}
+    \label{fig:graphcovidnet_graph_generation}
+\end{figure}

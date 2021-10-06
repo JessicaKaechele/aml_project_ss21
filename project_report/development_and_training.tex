@@ -1,5 +1,7 @@
-\section{Development \& Training}
-describe training and datasets for all models
+\section{Development \& Training}\label{sec:dev_and_training}
+describe training and datasets generation for all models
+
+% TODO from results: As mentioned in section \ref{sec:dev_and_training} we did not want to change more than absolutely necessary from the original implementation, including the testing and evaluation methods, which is why the presentation and form of results can differ from one paper to another.
 
 \subsection{Custom ResNet}
 - for testing / as replacement for original paper
@@ -12,10 +14,15 @@ duplication, shuffling, batching
 
 \subsection{Adapted Papers}
 
-\paragraph{COVIDNet}
-\paragraph{DLH-Covid}
-\paragraph{DarkCovidNet}
-\paragraph{GraphCovidNet}
+\subsubsection{COVID-Net}\label{subsubsec:dev_covidnet}
+
+\subsubsection{DLH-COVID}
+\subsubsection{DarkCovidNet}
+Model kopiert, Rest selbst implementiert, weil: mit PySyft testen und dann als Test für automated federation nutzen
+\subsubsection{GraphCovidNet}
+
+
+The graph generation described in section \ref{subsubsec:methods_graphcovidnet} consumed a lot of system memory. 
 
 erst andere paper nachgebaut
 deren training prozess beschreiben - vergleich ergebnisse mit paper (in anderem kapitel!)
