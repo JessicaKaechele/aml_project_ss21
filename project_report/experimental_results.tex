@@ -1,5 +1,5 @@
 \section{Experimental Results}
-This section will show and compare results obtained from original approaches, our implementation of them and their adoption to federated learning. As mentioned in section \ref{sec:dev_and_training} we did not want to change more than absolutely necessary from the original implementation, including the testing and evaluation methods, which is why the presentation and form of results can differ from one paper to another.
+This section will show and compare results obtained from original approaches, our implementation of them and their adoption to federated learning. As mentioned in section \ref{sec:dev_and_training} we did not want to change more than absolutely necessary from the original implementation, including the testing and evaluation methods, which is why the presentation and form of results can differ from one paper to another. All federated training results are gained with a 4 client setup.
 
 
 \subsection{Federation Paper}\label{subsec:results_federation_paper}
@@ -50,7 +50,7 @@ The COVID-Net implementation from the authors had its own result metrics evaluat
     \label{tab:results_covidnet}
 \end{table}
 
-As described in section \ref{subsubsec:dev_covidnet}, re-training of this model was not successful. Both specificity and positive predictive value are a lot worse than with the available pre-trained model. We did not attempt to implement a federated learning version because the results would not have been representative anyway if our centralized results are not at least close to the ones given by the authors.
+As described in section \ref{subsec:dev_covidnet}, re-training of this model was not successful. Both specificity and positive predictive value are a lot worse than with the available pre-trained model. We did not attempt to implement a federated learning version because the results would not have been representative anyway if our centralized results are not at least close to the ones given by the authors.
 
 \subsection{DLH-COVID}
 The results for the DLH-COVID model depicted in table \ref{tab:results_dlh_covid} show that, with our centralized training, we could not quite match the metric scores taken from the paper, but our federated learning approach still performed better than the centralized one in every regard and is not that far off from the original results.
@@ -121,19 +121,41 @@ Table \ref{tab:results_darkcovidnet} contains the results for DarkCovidNet. Our 
 In contrast to the results from section \ref{subsec:results_federation_paper} the Federated Averaging really did perform better than the SGD variant, and also better than our centralized model.
 
 \subsection{GraphCovidNet}
-The results from GraphCovidNet, which again include precision, recall, f1-score and accuracy and can be seen in table \ref{tab:results_graphcovidnet}, are the least and most interesting results at the same time. They are not really interesting because the authors achieved to build a model architecture which is able to perfectly predict every single test image and our own training matches these values as well. On the other hand, this model is the only one using an GNN architecture, which shows that federated learning in COVID research is not only useful for CNNs but other architecture types as well.
+The results from GraphCovidNet, which again include precision, recall, f1-score and accuracy and can be seen in table \ref{tab:results_graphcovidnet}, are the least and most interesting results at the same time. They are not really interesting because the authors achieved to build a model architecture which is able to perfectly predict every single test image for binary classification and our own training matches these values as well. On the other hand, this model is the only one using an GNN architecture, which shows that federated learning in COVID-19 research is not only useful for CNNs but other architecture types as well.
 
 \begin{table}[htbp]
     \small
     \centering
-    \caption{Comparison between GraphCovidNet paper\cite{graph_covid_net} and our training of it.}
+    \caption{Comparison between GraphCovidNet paper\cite{graph_covid_net} and our training of it. Results are from a train / test split of 0.8 / 0.2.}
     \begin{tabular}{c|c|c|c|c}
         Model & Precision & Recall & F1-Score & Accuracy \\
         \hline
-        Original & 1.0 & 1.0 & 1.0 & 1.0\\
-        Our training (cent.) & 1.0 & 1.0 & 1.0 & 1.0\\
-        Our training (fed.) & 1.0 & 1.0 & 1.0 & 1.0\\
+        Original (2-class) & 1.0 & 1.0 & 1.0 & 1.0\\
+        Our training (cent., 2-class) & 1.0 & 1.0 & 1.0 & 1.0\\
+        Our training (fed., 2-class) & 1.0 & 1.0 & 1.0 & 1.0\\
+        Original (4-class) & 0.99 & 0.99 & 0.99 & 0.99\\
+        Our training (cent., 4-class) & 1.0 & 1.0 & 1.0 & 1.0\\
+        Our training (fed., 4-class) & 0.984 & 0.984 & 0.984 & 0.980\\
     \end{tabular}
     \label{tab:results_graphcovidnet}
 \end{table}
 
+The existing code of GraphCovidNet allowed to specify how much of the data was used for training and how much for testing, but for binary classification all splits resulted in perfect predictions.
+
+\begin{figure}[htbp]
+    \vspace{.3cm}
+    \begin{subfigure}{.45\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{imgs/graphcovidnet_4_class_seq_accuracy.png}
+      \label{fig:graphcovidnet_4_class_accuracies_seq}
+    \end{subfigure}
+    \begin{subfigure}{.45\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{imgs/graphcovidnet_4_class_fed_accuracy.png}
+      \label{fig:graphcovidnet_4_class_accuracies_fed}
+    \end{subfigure}
+    \caption{Comparison of centralized and federated training of GraphCovidNet on a 4-class dataset. Accuracies on the left side are from centralized training and accuracies on the right side from federated training.}
+    \label{fig:graphcovidnet_4_class_accuracies}
+\end{figure}
+
+For 4-class classification the results are not perfect, but also very good. Figure \ref{fig:graphcovidnet_4_class_accuracies} shows the accuracies for all training / test splits for both our centralized and federated training. As can be seen the federated training version only achieves comparable accuracies once 60\% or more of the data is used for training purposes. This might be explained by the fact that the complete dataset does not contain a lot of images, with even less images per client when split, and that a small split in favor of training data does simply not give enough data to meaningfully train.

@@ -1,45 +1,90 @@
 \section{Development \& Training}\label{sec:dev_and_training}
-describe training and datasets generation for all models
+The following section will describe the development and training process of all models introduced in section \ref{subsec:methods_original_paper} and \ref{subsec:methods_adapted_papers}, including any steps needed for the respective dataset creation. 
+To get the most accurate comparison against the original papers results, while developing we took the authors code that was released together with each paper and tried to get it running on our local system and/or Google Colab\footnote{\url{https://colab.research.google.com/}} with the least amount of modifications to data loading, training and testing methods as possible. More detail on how each model was adapted can be found in the following subsections.
+All experiments were done with either PyTorch or Tensorflow and all systems used had at least 12GB of RAM and a CUDA capable GPU equipped.
 
-% TODO from results: As mentioned in section \ref{sec:dev_and_training} we did not want to change more than absolutely necessary from the original implementation, including the testing and evaluation methods, which is why the presentation and form of results can differ from one paper to another.
 
-\subsection{Custom ResNet}
-- for testing / as replacement for original paper
-- PySyft
+\subsection{Custom ResNet}\label{subsec:methods_resnet}
+As described in section \ref{subsec:methods_original_paper} we were not able to exactly rebuild the \textit{federation papers} original model.
+Instead, we took the dataset mentioned by the authors, resized them to 244 by 244 pixels and treated non-disease and pneumonia images as the same class. 
+We then trained a pre-built (but not pre-trained) ResNet18 from PyTorch with an Adam optimizer and an instance of the \textit{BCEWithLogitsLoss} criterion for 25 epochs and a batch size of 32. The model accuracy was tested after each epoch.
 
-zuerst paper angeschaut, dabei dsa problem gehabt, dass netzwerk nicht ausreichend beschrieben wurde
--> selbst eins gebaut und uns an die angaben so nah wie möglich gehalten
+Once this procedure resulted in accuracies close to the values from the paper, we started experimenting with federated learning. In the beginning we used the PySyft\footnote{Federated learning framework which can be used with PyTorch and Tensorflow. Available at \url{https://github.com/OpenMined/PySyft}.} framework to test which results federated learning can achieve with an already established implementation, but did not get it to work correctly. The accuracy of the federated model stayed the same during all training epochs and the model did not seem to learn anything, most likely caused by a user-error regarding PySyft.
 
-duplication, shuffling, batching
+We quickly moved on, as we did not want to spent too much time debugging code that was not going to be used for the actual project research anyway. The first step for our own implementation was the creation of one global and $N$ local models, each with its own copy of the whole training dataset.
+The next step was implementing methods to distribute the global model to the clients, which was as simple as loading the complete state of the global model by each of the local models. The FedAvg algorithm was implemented by iterating through the parameters of all local models manually and adding these individual values, each divided by the count of client models, to one dictionary. This dictionary containing the averaged model parameters was then loaded by the global model.
+At the beginning of each epoch, the client models were updated with the parameters of the global model and then trained. Once each client model completed one round of training, the global model was updated.
+As the Adam optimizer is initialized with its respective models parameters and the parameters of all models changed after the global model was updated, a new optimizer instance had to be created for each client after each epoch.
+Also, generally, only a subset of all clients is used for training in each round, because there are diminishing returns after a certain number of clients and the communication overhead is not worth the additional accuracy.\cite{fl_paper}. Regardless of this, we use all clients because we only use a small number of them (usually 4) and the communication overhead is not as bad in our simulated federal learning setting than in a real world scenario.
 
-Normally, only a subset of clients used in each round (diminishing returns after some point according to Google). We use all clients because of the low number.
+The last change that we made to our ResNet model training was using our automated federation learning class, which is illustrated in more detail in section \ref{subsec:methods_automated_fl}, with different parameters. All results discussed from this model were obtained by training with this automation.
 
-\subsection{Adapted Papers}
+\subsection{COVID-Net}\label{subsec:dev_covidnet}
 
-\subsubsection{COVID-Net}\label{subsubsec:dev_covidnet}
+retraining not successful
 
-\subsubsection{DLH-COVID}
-\subsubsection{DarkCovidNet}
+\subsection{DLH-COVID}
+\subsection{DarkCovidNet}
 Model kopiert, Rest selbst implementiert, weil: mit PySyft testen und dann als Test für automated federation nutzen
-\subsubsection{GraphCovidNet}
+\subsection{GraphCovidNet}
 
 
 The graph generation described in section \ref{subsubsec:methods_graphcovidnet} consumed a lot of system memory. 
 
-erst andere paper nachgebaut
-deren training prozess beschreiben - vergleich ergebnisse mit paper (in anderem kapitel!)
-federated process 
-  -> original paper nachstellen
-  -> erst mit duplizierten daten
-  -> dann mit split / augmented
-  -> andere paper
-  -> automatisiert
 
 
-\subsection{Other Papers}
+\subsection{Automated Federated Learning}\label{subsec:methods_automated_fl}
+One part of our goal for the project was to create a function or class which could be given a PyTorch model and some more parameters and test the model with both centralized and federated learning for an easy to use way to gauge if it is worth implementing a model with a full federated learning framework. 
 
+We started developing the automation by creating a function which can split data that is passed in the form of a PyTorch \textit{Dataset} to a list of \textit{DataLoader} instances which can then be used for training of a local model. In addition to the \textit{Dataset} the user needs to specify the number of clients, the local batch size, whether or not data is augmented before being passed to the client, whether or not a client gets a copy of the full dataset or only a chunk of the size $ 1 / \text{number\_of\_clients} $ as well as some supplementary arguments which get passed to the \textit{DataLoader} instances directly.
+If the data should be augmented a composed PyTorch transformation is created which include a random horizontal flip (with 50\% probability), a random vertical flip (same probability), a random rotation of up to 90 degrees in either direction and a random translation on both axis of up to 20\% of the image size.
+When using full data on each client, we simply return one \textit{DataLoader} with the full dataset for each client. Otherwise, we split the dataset into random but equally sized subsets and then create \textit{DataLoader} instances with these. 
+Because this function takes a \textit{Dataset} instance which can already contain transforms we had to implement our own sub-class of the \textit{Dataset} type which hold the original dataset and a transformation object. Every time an item is retrieved from this new type of dataset, we take the item from the wrapped dataset and manually apply the transformations described above.
 
-\subsection{Automated Federated Learning}
-automation
-same gpu resources as single model (but potentially more ram)
-difference in time to train not taken into consideration because the communication overhead will most likely be way more noticeable (could be studied in the future)
+This function, together with the client update and FedAvg methods from section \ref{subsec:methods_resnet}, was then used inside the \textit{FederatedLearningTest} class, whose initialization method can be seen in listing \ref{lst:automated_fl_init}. For obvious reasons the class needs to be passed the model that should be tested and both a training as well as a testing dataset. As we do not know and more importantly do not want to control how to train (one epoch at a time) and how to test the model, functions for both of these operations need to be passed in as well. These functions need to have a certain signature in order for us to call them correctly. The train function needs to take the model, a training \textit{DataLoader}, an optimizer and a criterion as arguments and not return anything. The test function also needs to take the model, the test \textit{DataLoader} and a criterion as arguments. It can also return any printable object, we print this return value every time the test function is called internally.
+Further initialization arguments for the class include whether or not to use the GPU, how many global epochs or round should be trained and how many local epochs should be trained. 
+
+\begin{lstlisting}[language=CustomPython, style=colorEX, caption=Automated federation learning class initialization, captionpos=t, label=lst:automated_fl_init]
+  class FederatedLearningTest:
+    def __init__(
+      self,
+      model: torch.nn.Module,
+      train_dataset: torch.utils.data.Dataset,
+      test_dataset: torch.utils.data.Dataset,
+      train_epoch_fn: Callable[
+        [torch.nn.Module, torch.utils.data.DataLoader, torch.optim.Optimizer, torch.nn.modules.loss._Loss], 
+        None
+      ], 
+      test_fn: Callable[
+        [torch.nn.Module, torch.utils.data.DataLoader, torch.nn.modules.loss._Loss],
+        Any
+      ],
+      use_gpu: bool,
+      epochs_to_train: int,
+      local_epochs_to_train: int
+    ): [...]
+\end{lstlisting}
+
+Once an instance of the class is created, the compare method, the signature of which can be seen in listing \ref{lst:automated_fl_compare}, can be called with different parameters as many times as needed. The first two arguments are only used for preparing and splitting the data as portrayed above. The number of clients is also used for data preparation in addition to creating the correct amount of client models and looping over them. The compare function also need to be passed two functions which return a new PyTorch optimizer and a PyTorch loss or criterion instance respectively because these have to be constructed more than once during the training process. The last argument controls whether the model is tested after every epoch or only once at the end of training.
+
+\begin{lstlisting}[language=CustomPython, style=colorEX, caption=Automated federation learning compare method input, captionpos=t, label=lst:automated_fl_compare]
+  def compare(
+    self,
+    augment_data: bool,
+    full_data_on_each_client: bool,
+    no_of_clients: int,
+    construct_optimizer_fn: Callable[
+      [torch.nn.Module],
+      torch.optim.Optimizer
+    ],
+    construct_loss_fn: Callable[
+      [],
+      torch.nn.modules.loss._Loss
+    ],
+    test_after_each_epoch: bool = False
+  ): [...]
+\end{lstlisting}
+
+When calling the compare method, we begin with training of the non-federated model. A deep copy of the initial model, an optimizer and a criterion as well as train and test \textit{DataLoader}s are created. The model is then trained for the specified number of epochs by calling the given train function in a loop. After training is complete the test function is called in the same way and its result gets printed. Our implementation completely automates moving of the model and data to and from the GPU and setting the model to the appropriate mode for training and testing without any help from the user.
+The same process is then repeated for federated learning. Except for one copy of the initial model there are now $ 1 + \text{number\_of\_clients} $ models (1 global plus clients) copied from the initial one. Next, the data is prepared according to the arguments that were passed. The training process contains one additional loop to go over each client model as well as the model parameter updating between clients and global model, but is otherwise the same as before.
+In the end, results from both training rounds are printed for the user to consume and evaluate.

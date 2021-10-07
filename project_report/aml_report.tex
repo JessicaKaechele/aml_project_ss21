@@ -36,7 +36,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 % F�r todos
-\usepackage[obeyFinal]{easy-todo}
+% \usepackage[obeyFinal]{easy-todo}
 
 % hyperrefs in the documents
 \PassOptionsToPackage{hyphens}{url}\usepackage[
@@ -53,9 +53,66 @@
   urlcolor=black]{hyperref}
 %\usepackage{hyperref}
 
+% Custom colors
+\usepackage{color}
+\definecolor{darkred}{rgb}{0.6,0.0,0.0}
+\definecolor{darkgreen}{rgb}{0,0.50,0}
+\definecolor{lightblue}{rgb}{0.0,0.42,0.91}
+\definecolor{orange}{rgb}{0.99,0.48,0.13}
+\definecolor{grass}{rgb}{0.18,0.80,0.18}
+\definecolor{pink}{rgb}{0.97,0.15,0.45}
+
 \usepackage{csquotes}
 \usepackage{tabularx}
-\usepackage{subcaption}
+\usepackage{listings}
+
+% General Setting of listings
+\lstset{
+  aboveskip=1em,
+  breaklines=true,
+  abovecaptionskip=-6pt,
+  captionpos=b,
+  escapeinside={\%*}{*)},
+  frame=single,
+  numbers=left,
+  numbersep=15pt,
+  numberstyle=\tiny,
+}
+% 0. Basic Color Theme
+\lstdefinestyle{colored}{ %
+  basicstyle=\ttfamily,
+  backgroundcolor=\color{white},
+  commentstyle=\color{green}\itshape,
+  keywordstyle=\color{blue}\bfseries\itshape,
+  stringstyle=\color{red},
+}
+% 1. General Python Keywords List
+\lstdefinelanguage{PythonPlus}[]{Python}{
+  morekeywords=[1]{,as,assert,nonlocal,with,yield,self,True,False,None,} % Python builtin
+  morekeywords=[2]{,__init__,__add__,__mul__,__div__,__sub__,__call__,__getitem__,__setitem__,__eq__,__ne__,__nonzero__,__rmul__,__radd__,__repr__,__str__,__get__,__truediv__,__pow__,__name__,__future__,__all__,Any, Callable}, % magic methods
+  morekeywords=[3]{,,object,type,isinstance,copy,deepcopy,zip,enumerate,reversed,list,set,len,dict,tuple,range,xrange,append,execfile,real,imag,reduce,str,repr,}, % common functions
+  morekeywords=[4]{,Exception,NameError,IndexError,SyntaxError,TypeError,ValueError,OverflowError,ZeroDivisionError,}, % errors
+  morekeywords=[5]{,ode,fsolve,sqrt,exp,sin,cos,arctan,arctan2,arccos,pi, array,norm,solve,dot,arange,isscalar,max,sum,flatten,shape,reshape,find,any,all,abs,plot,linspace,legend,quad,polyval,polyfit,hstack,concatenate,vstack,column_stack,empty,zeros,ones,rand,vander,grid,pcolor,eig,eigs,eigvals,svd,qr,tan,det,logspace,roll,min,mean,cumsum,cumprod,diff,vectorize,lstsq,cla,eye,xlabel,ylabel,squeeze,}, % numpy / math
+}
+% 2. New Language based on Python
+\lstdefinelanguage{CustomPython}[]{PythonPlus}{
+  morekeywords=[2]{,Any}, 
+  morekeywords=[3]{,Dataset, Callable, DataLoader, Module, Optimizer, _Loss},
+  emph={FederatedLearningTest, compare},
+}
+% 3. Extended theme
+\lstdefinestyle{colorEX}{
+  basicstyle=\footnotesize\ttfamily,
+  backgroundcolor=\color{white},
+  commentstyle=\color{darkgreen}\slshape,
+  keywordstyle=\color{blue}\bfseries\itshape,
+  keywordstyle=[2]\color{blue}\bfseries,
+  keywordstyle=[3]\color{grass},
+  keywordstyle=[4]\color{red},
+  keywordstyle=[5]\color{orange},
+  stringstyle=\color{darkred},
+  emphstyle=\color{pink}\underbar,
+}
 
 % subfigures
 \usepackage{subcaption}
@@ -133,27 +190,20 @@ Team Member: & Jonas Reinwald, 3600238, \\ & MSc Applied Computer Science\\
 \newpage
 \listoffigures
 \listoftables
+\lstlistoflistings
 
 \newpage
 
 \pagenumbering{arabic}
 
 \begin{abstract}
-    covid research and ML was asked for
-    covid and privacy both highly aktuelle topics
-    covid is bla
-    privacy wegen bla
-    what do they have in common / how can they be combined
-
-    We evaluate die umsetzbarkeit und performance von federated learning and present a way to test it with almost no changes to existing code required
-    motivated by the practical benefits of federated learning in the field of covid research
-
-    Research nowadays is at an all-time high, with research papers getting published every day.
-    Over the last decade alone, the number of research papers on machine learning has more than tripled \cite{dimensions}.
-    However, this comes with a downside, as it is getting harder and harder to keep track of trends and find specific information.
-    To address this issue, we propose a clustering solution that exploits the standardized submission pipeline.
-    Each submission consists of a title, an abstract, a text body, and a set of keywords that best describe the paper.
-    We use the keywords from a set of over two thousand research papers on machine learning as supervision for clustering the abstracts in the hopes of finding and exploring subtopics.
+  Both COVID-19 and data privacy are without a doubt two highly relevant topics of our time.
+  There is a lot of COVID-19 research happening in the area of machine learning that generally requires large amount of data.
+  This often leads to hard decisions between preserving personal medical data privacy and not having enough data to do research and vice versa.
+  With Federated Learning there exists a paradigm which can combine both of these needs.
+  In this project, which is part of the Advanced Machine Learning lecture given by Prof. Dr. Ullrich Köthe at the University of Heidelberg\cite{aml_lecture}, we explore if machine learning COVID-19 research can be combined with federated learning to preserve data privacy and how it affects the performance of already existing machine learning models.
+  We also present a way to test such models with federated learning while requiring almost no change to existing code in the hope that federated learning will be adopted by more researchers in the future.
+  Our findings indicate that machine learning architectures used for COVID-19 research can indeed be adopted to use federated machine learning with low to no negative impact on their accuracy.
 \end{abstract}
 
 \input{introduction}
