@@ -30,7 +30,7 @@ The next row, which shows our federated ResNet with duplicated data on each clie
 In real world scenarios the data is never duplicated on each client device, as this would defeat the purpose of federated learning.
 This is why we also tested our implementation with an evenly, randomly split dataset on each client (row 7), which does not perform as good as the previous test but still better than the centralized model.
 Row 8 shows the same test but with data that was additionally augmented to make the images less similar with each other. Curiously, this results in the worst performance of all runs. One explanation for this is that the model simply needs more epochs of training to learn the added variation in the data. Another explanation is that, because testing of this model was still done with un-augmented data, the results of the other models show some form of over-fitting to the given images which is not apparent in the current model.
-The last row repeats the experiment from row 7, but uses Federated Averaging with 5 local epochs on each client for each global epoch instead of Federated SGD to aggregate the client model weights. In theory this should perform better than its Federated SGD counterpart.
+The last row repeats the experiment from row 7, but uses Federated Averaging with 5 local epochs on each client for each global epoch instead of Federated SGD to aggregate the client model parameters. In theory this should perform better than its Federated SGD counterpart.
 
 \subsection{COVID-Net}
 The COVID-Net implementation from the authors had its own result metrics evaluation using sensitivity, specificity, positive predictive value and negative predictive value, the corresponding values can be seen in table \ref{tab:results_covidnet}. 
