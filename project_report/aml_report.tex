@@ -114,6 +114,9 @@
   emphstyle=\color{pink}\underbar,
 }
 
+\usepackage[backend=biber, style=ieee]{biblatex}
+\addbibresource{bibtex/references.bib}
+
 % subfigures
 \usepackage{subcaption}
 \usepackage[font={small,it}]{caption}
@@ -200,7 +203,7 @@ Team Member: & Jonas Reinwald, 3600238, \\ & MSc Applied Computer Science\\
   Both COVID-19 and data privacy are without a doubt two highly relevant topics of our time.
   There is a lot of COVID-19 research happening in the area of machine learning that generally requires large amount of data.
   This often leads to hard decisions between preserving personal medical data privacy and not having enough data to do research and vice versa.
-  With Federated Learning there exists a paradigm which can combine both of these needs.
+  With Federated Learning there exists a paradigm which can satisfy both of these needs.
   In this project, which is part of the Advanced Machine Learning lecture given by Prof. Dr. Ullrich Köthe at the University of Heidelberg\cite{aml_lecture}, we explore if machine learning COVID-19 research can be combined with federated learning to preserve data privacy and how it affects the performance of already existing machine learning models.
   We also present a way to test such models with federated learning while requiring almost no change to existing code in the hope that federated learning will be adopted by more researchers in the future.
   Our findings indicate that machine learning architectures used for COVID-19 research can indeed be adopted to use federated machine learning with low to no negative impact on their accuracy.
@@ -212,7 +215,6 @@ Team Member: & Jonas Reinwald, 3600238, \\ & MSc Applied Computer Science\\
 \input{experimental_results}
 \input{outlook}
 
-\bibliographystyle{plain}
-\bibliography{bibtex/references}
+\printbibliography
 
 \end{document}
