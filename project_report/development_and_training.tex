@@ -1,7 +1,7 @@
 \section{Development \& Training}\label{sec:dev_and_training}
 The following section will describe the development and training process of all models introduced in section \ref{subsec:methods_original_paper} and \ref{subsec:methods_adapted_papers}, including any steps needed for the respective dataset creation. 
-To get the most accurate comparison against the original papers results, while developing we took the authors code that was released together with each paper and tried to get it running on our local system and/or Google Colab\footnote{\url{https://colab.research.google.com/}} with the least amount of modifications to data loading, training and testing methods as possible. More detail on how each model was adapted can be found in the following subsections.
-All experiments were done with either PyTorch or Tensorflow and all systems used had at least 12GB of RAM and a CUDA capable GPU equipped.
+To get the most accurate comparison against the original papers results, while developing we took the authors code that was released together with each paper and tried to get it running ourselves with the least amount of modifications to data loading, training and testing methods as possible. More detail on how each model was adapted can be found in the following subsections.
+All experiments were done with either PyTorch or Tensorflow and all systems used had at least 12GB of RAM and a CUDA capable GPU equipped. For our custom ResNet training we used our own machines, while development on all the other models was done on Google Colab\footnote{\url{https://colab.research.google.com/}}, because most of the time local resources were insufficient for either data generation or training or both.  
 
 
 \subsection{Custom ResNet}\label{subsec:methods_resnet}
@@ -9,7 +9,7 @@ As described in section \ref{subsec:methods_original_paper} we were not able to 
 Instead, we took the dataset mentioned by the authors, resized them to 244 by 244 pixels and treated non-disease and pneumonia images as the same class. 
 We then trained a pre-built (but not pre-trained) ResNet18 from PyTorch with an Adam optimizer and an instance of the \textit{BCEWithLogitsLoss} criterion for 25 epochs and a batch size of 32. The model accuracy was tested after each epoch.
 
-Once this procedure resulted in accuracies close to the values from the paper, we started experimenting with federated learning. In the beginning we used the PySyft\footnote{Federated learning framework which can be used with PyTorch and Tensorflow. Available at \url{https://github.com/OpenMined/PySyft}.} framework to test which results federated learning can achieve with an already established implementation, but did not get it to work correctly. The accuracy of the federated model stayed the same during all training epochs and the model did not seem to learn anything, most likely caused by a user-error regarding PySyft.
+Once this procedure resulted in accuracies close to the values from the paper, we started experimenting with federated learning. In the beginning we used the PySyft\footnote{Federated learning framework which can has both a PyTorch and a Tensorflow backend. Available at \url{https://github.com/OpenMined/PySyft}.} framework to test which results federated learning can achieve with an already established implementation, but did not get it to work correctly. The accuracy of the federated model stayed the same during all training epochs and the model did not seem to learn anything, most likely caused by a user-error regarding PySyft.
 
 We quickly moved on, as we did not want to spent too much time debugging code that was not going to be used for the actual project research anyway. The first step for our own implementation was the creation of one global and $N$ local models, each with its own copy of the whole training dataset.
 The next step was implementing methods to distribute the global model to the clients, which was as simple as loading the complete state of the global model by each of the local models. The FedAvg algorithm was implemented by iterating through the parameters of all local models manually and adding these individual values, each divided by the count of client models, to one dictionary. This dictionary containing the averaged model parameters was then loaded by the global model.
@@ -20,18 +20,24 @@ Also, generally, only a subset of all clients is used for training in each round
 The last change that we made to our ResNet model training was using our automated federation learning class, which is illustrated in more detail in section \ref{subsec:methods_automated_fl}, with different parameters. All results discussed from this model were obtained by training with this automation.
 
 \subsection{COVID-Net}\label{subsec:dev_covidnet}
+To set up binary classification we were able to mostly take the relevant code files from the papers GitHub repository\footnote{\url{https://github.com/lindawangg/COVID-Net/}} and directly use them in a notebook. As the authors final model was adopted from a pre-trained existing model and then modified using generative synthesis, the authors do not know how to actually train it from randomly initialized weights and biases. Instead they provide their finished model as a Numpy array and only provide code to re-train this model on new data. 
 
-retraining not successful
+Generating the necessary dataset required following a five step manual with lots of manual downloads and code modifications. Creating and then uploading it for use in Google Colab took a long time, which eventually turned out to be wasted. When this step was done, we tried re-training the existing model on the generated dataset with exactly the code provided by the authors, but it performed worse the more epochs it was trained with every combination of parameters that we used. Because of this, we were not able to replicate the papers results and never implemented federated training with this approach. This implementation was the only one using Tensorflow as a backend, which would have made the insights gained from it even more valuable.
 
 \subsection{DLH-COVID}
+Just like with the previous model we managed to get the code from the papers GitHub repository\footnote{\url{https://github.com/soudey123/COVID-19-CHEST-X-RAY-IMAGE-CLASSIFICATION_UIUC/}} running with minimal modifications, which consisted of adapting drive paths to the dataset and removing parts that were of no interest to our research.
+For the federated learning, we changed the existing training functions to include multiple client models and the same FedAvg function that we used for our ResNet training. Some variables and function calls had to be adapted to work with multiple models, but the changes were not too difficult. After training, the global model could be evaluated and tested with the exact same functions as the non-federated model previously.  
+
 \subsection{DarkCovidNet}
-Model kopiert, Rest selbst implementiert, weil: mit PySyft testen und dann als Test für automated federation nutzen
+The official DarkCovidNet implementation uses the computer vision module of a neural network training framework named fastai\footnote{\url{https://fastai1.fast.ai/index.html}}. Using this framework, the actual training and testing is not exposed in the code, which is why we decided to implement our own version of the model according to the layer information taken from the paper. For training and testing we were able to re-use the functions used for our ResNet model. Additionally, the DarkCovidNet model was trained with k-fold cross-validation using 3 folds.
+As we developed this adaptation at the same time as the ResNet model, we also tried to use PySyft on it. The results were the same as before, where the model did not seem to actually train or learn anything.
+We then decided to not implement federated learning manually but rather wait until the automation class was ready to test it with an additional model. The final results of this model were obtained with the help of this automated process.
+
 \subsection{GraphCovidNet}
-
-
-The graph generation described in section \ref{subsubsec:methods_graphcovidnet} consumed a lot of system memory. 
-
-
+Once again most of the implementation of this architecture was taken from the GitHub repository\footnote{\url{https://github.com/debadyuti23/GraphCovidNet/}} and modified to run in a Google Colab notebook. 
+The authors provide two scripts for generation of the graph data set from images. They include the option to resize images to a smaller size to reduce system memory footprint, but we were worried that we could not reproduce the papers results if we had chosen to use this option. Not using it, however, meant that the memory requirements exceeded both the amount that Google Colab makes available for free and that we have available on our local machines. We temporarily used a Google Colab Pro subscription for generating the datasets.
+Training and evaluating the model on the other hand was fairly straightforward and only some minor changes had to be made to fit our environment. Integrating federated learning was more of a challenge than with the papers because the code is not very modular and uses a lot of global variables.
+At first, we only created the dataset and code for running a binary classification, but towards the end of the project a second notebook with 4-class classification was implemented as well.
 
 \subsection{Automated Federated Learning}\label{subsec:methods_automated_fl}
 One part of our goal for the project was to create a function or class which could be given a PyTorch model and some more parameters and test the model with both centralized and federated learning for an easy to use way to gauge if it is worth implementing a model with a full federated learning framework. 
